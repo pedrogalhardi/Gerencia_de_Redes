@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link rel="stylesheet" type="text/css" href="menu.css ">
+</head>
+
+
+
+
+colocar entrada de IPS de outras maquinas e fazer uma pagina estatica para mostrar os dados daquela maquuina
+
+
+
+<body>
+  <div class="navigation">
+    <ul>
+      <li>
+        <a href="http://127.0.0.1:5500/menu.html">
+          <span class="icon"><ion-icon name="logo-apple"></ion-icon></span>
+          <span class="title">GERÊNCIA DE REDES</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://127.0.0.1:5500/sensor1.html">
+          <span class="icon"><ion-icon name="cellular-outline"></ion-icon></span>
+          <span class="title">Sensor 1</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://127.0.0.1:5500/sensor2.html">
+          <span class="icon"><ion-icon name="hardware-chip-outline"></ion-icon></span>
+          <span class="title">Sensor 2</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://127.0.0.1:5500/sensor3.html">
+          <span class="icon"><ion-icon name="server-outline"></ion-icon></span>
+          <span class="title">Sensor 3</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://127.0.0.1:5500/sensor4.html">
+          <span class="icon"><ion-icon name="stats-chart-outline"></ion-icon></span>
+          <span class="title">Sensor 4</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://127.0.0.1:5500/ajuda.html">
+          <span class="icon"><ion-icon name="help-outline"></ion-icon></span>
+          <span class="title">Ajuda</span>
+        </a>
+      </li>
+    </ul>
+    <div class="toggle "></div>
+  </div>
+  <div class="container">
+    <h1>Trabalho Gerencia de Redes</h1>
+    <div class="image-container">
+      <img src="./images/snmp1.png" alt="ProtocoloSNMP" />
+    </div>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+  <script>
+    let navigation = document.querySelector('.navigation');
+    let toggle = document.querySelector('.toggle');
+    toggle.onclick = function () {
+      navigation.classList.toggle('active')
+    }
+  </script>
+</body>
+
+</html>
