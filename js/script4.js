@@ -1,29 +1,75 @@
-var data = {
-  labels: ['12:30', '12:31', '12:32', '12:33', '12:34'],
-  datasets: [
-    {
-      label: 'Processos Abertos',
-      data: [12, 19, 3, 5, 2],
-      //backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cor de fundo das barras
-      //borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda das barras
-      borderWidth: 1, // Largura da borda das barras
-    },
-  ],
-};
+const labelIPInX = [];
+const dataIPInY = [];
+var timer;
 
-// Configurações do gráfico
-var options = {
-  scales: {
-    y: {
-      beginAtZero: true,
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labelIPInX,
+    datasets: [
+      {
+        label: 'Número de Processos',
+        data: dataIPInY,
+        backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(255, 99, 132, 1)'],
+        borderWidth: 2,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Data/Hora',
+        },
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Qtde de processos',
+        },
+      },
     },
   },
-};
-
-// Criar o gráfico
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'bar', // Tipo de gráfico (bar: barras, line: linha, pie: pizza, etc.)
-  data: data,
-  options: options,
 });
+
+//Adicionando eventos nos botões
+document.getElementById('btnIniciar').addEventListener('click', function () {
+  console.log('Iniciando o monitoramento!!');
+  timer = setInterval(snmpGet, 5000);
+});
+
+document
+  .getElementById('btnInterromper')
+  .addEventListener('click', function () {
+    console.log('Parando o monitoramento!!');
+    clearInterval(timer);
+  });
+
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+});
+
+//Requisição SNMP
+function snmpGet() {
+  const IP = document.querySelector('#ip').value;
+  const comun = document.querySelector('#com').value;
+
+  $.ajax({
+    url: 'snmpGet4.php',
+    method: 'POST',
+    data: { ip: IP, com: comun },
+    success: function (response) {
+      console.log(response);
+      var dateTime = new Date();
+      labelIPInX.push(dateTime.toLocaleTimeString());
+      dataIPInY.push(parseInt(response));
+      myChart.update();
+    },
+  });
+}

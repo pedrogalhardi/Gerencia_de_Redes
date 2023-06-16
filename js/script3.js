@@ -1,29 +1,37 @@
-var data = {
-  labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
-  datasets: [
-    {
-      label: 'Processos Abertos',
-      data: [12, 19, 3, 5, 2],
-      //backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cor de fundo das barras
-      //borderColor: 'rgba(75, 192, 192, 1)', // Cor da borda das barras
-      borderWidth: 1, // Largura da borda das barras
-    },
-  ],
-};
+const labelIPInX = [];
+const dataIPInY = [];
+var timer;
 
-// Configurações do gráfico
-var options = {
-  scales: {
-    y: {
-      beginAtZero: true,
-    },
-  },
-};
-
-// Criar o gráfico
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'radar', // Tipo de gráfico (bar: barras, line: linha, pie: pizza, etc.)
-  data: data,
-  options: options,
+//Adicionando eventos nos botões
+document.getElementById('btnIniciar').addEventListener('click', function () {
+  console.log('Iniciando o monitoramento!!');
+  snmpGet();
 });
+
+document
+  .getElementById('btnInterromper')
+  .addEventListener('click', function () {
+    console.log('Parando o monitoramento!!');
+  });
+
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+});
+
+//Requisição SNMP
+function snmpGet() {
+  const IP = document.querySelector('#ip').value;
+  const comun = document.querySelector('#com').value;
+
+  $.ajax({
+    url: 'snmpGet3.php',
+    method: 'POST',
+    data: { ip: IP, com: comun },
+    success: function (response) {
+      const Desc = document.querySelector('#desc');
+      Desc.innerHTML = `${response}`;
+      console.log(response);
+    },
+  });
+}

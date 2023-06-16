@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-#btn {
+#divBtn {
   text-align: center;
 }
 #btnIniciar {
@@ -196,5 +196,4 @@ h1 {
   letter-spacing: 1.2px;
   padding: 0.5em;
   box-shadow: 7.5px -7.5px 0 7.5px #fff;
-
 }
